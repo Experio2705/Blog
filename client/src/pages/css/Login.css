@@ -1,0 +1,59 @@
+*{
+    margin: 0;
+    border:0;
+}
+.login-back{
+    height: 100vh;
+    width:100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url(D:\program\react\blogs\client\src\assets\login-back.png);
+}
+.login-front{
+    height: 30%;
+    width: 30%;
+    background:rgba(0,0,0,0.8);
+    color: white;
+    padding: 2%;
+    border-radius: 8px;
+}
+
+.login{
+    color: white;
+    width: 100%;
+    margin-bottom: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+}
+.email{
+    display: flex;
+    margin-left: 2%;
+    margin-top: 3%;
+    width: 80%;
+}
+.login-but{
+    margin-top: 8%;
+    height: 10%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+button:hover{
+    color: rgb(204, 35, 35);
+    cursor: pointer;
+}
+.register-but{
+    display: flex;
+    margin-top: 6%;
+    height: 10%;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+.reg{
+    cursor: pointer;
+}
