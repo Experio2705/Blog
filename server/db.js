@@ -2,18 +2,27 @@ import express from "express"
 import mysql from "mysql2"
 import cors from "cors";
 import multer from "multer";
+import dotenv from "dotenv";
+dotenv.config();
 
 const app=express();
-app.use(cors());
+app.use(cors({
+  origin: "*",
+  methods: ["GET","POST","PUT","DELETE"],
+  credentials: true
+}));
+
 app.use(express.json());
 app.use("/uploads", express.static("uploads"));
 
-const db=mysql.createConnection({
-    host:"localhost",
-    user:"root",
-    password:"experio",
-    database:"blog",
+const db = mysql.createConnection({
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
+  port: process.env.DB_PORT
 });
+
 db.connect(err=>{
   if(err) console.log("DB ERROR:", err);
   else console.log("DB CONNECTED");
@@ -207,6 +216,7 @@ app.get('/Category',(req,res)=>{
         res.json(data);
     })
 })
-app.listen(8800,()=>{
-    console.log("Connected to backend fine.");
-})
+const PORT = process.env.PORT || 8800;
+app.listen(PORT, () => {
+    console.log("Server running on port " + PORT);
+});

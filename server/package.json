@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "db.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node db.js",
@@ -13,6 +14,7 @@
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.6",
+    "dotenv": "^17.2.4",
     "express": "^5.2.1",
     "multer": "^2.0.2",
     "mysql2": "^3.16.2",
