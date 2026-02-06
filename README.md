@@ -1,16 +1,190 @@
-# React + Vite
+# 📝 Full Stack Blog Platform
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern full‑stack blogging platform where users can create posts, like, save, and interact with other users. The project demonstrates authentication, database relationships, REST APIs, and a responsive frontend UI.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Features
 
-## React Compiler
+- User Registration & Login
+- Create, Edit and Delete Blog Posts
+- Like / Unlike Posts
+- Save / Unsave Posts (Bookmarks)
+- User Profile Page
+- View Other Users' Posts
+- Persistent Like State (remembers user actions)
+- Responsive UI
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## 🛠 Tech Stack
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Frontend
+
+- React.js
+- CSS
+- Axios
+- React Router
+- Font Awesome Icons
+
+### Backend
+
+- Node.js
+- Express.js
+- REST API Architecture
+
+### Database
+
+- MySQL / Supabase (Relational Database)
+
+---
+
+## 📁 Project Structure
+
+```
+project-root
+│
+├── frontend/
+│   ├── src/
+│   │   ├── pages/
+│   │   ├── components/
+│   │   ├── css/
+│   │   └── App.jsx
+│
+├── backend/
+│   ├── server.js
+│   ├── routes/
+│   ├── controllers/
+│   └── db.js
+│
+└── README.md
+```
+
+---
+
+## ⚙️ Installation & Setup
+
+### 1️⃣ Clone the Repository
+
+```
+git clone <your-repo-link>
+cd project-root
+```
+
+---
+
+### 2️⃣ Backend Setup
+
+```
+cd backend
+npm install
+```
+
+Create `.env` file:
+
+```
+PORT=5000
+DB_HOST=localhost
+DB_USER=root
+DB_PASSWORD=yourpassword
+DB_NAME=blogdb
+```
+
+Run backend:
+
+```
+nodemon server.js
+```
+
+---
+
+### 3️⃣ Frontend Setup
+
+```
+cd frontend
+npm install
+npm run dev
+```
+
+App runs at:
+
+```
+http://localhost:5173
+```
+
+---
+
+## 📡 API Endpoints
+
+### Authentication
+
+| Method | Endpoint  | Description    |
+| ------ | --------- | -------------- |
+| POST   | /Login    | User Login     |
+| POST   | /Register | Create Account |
+
+### Blog
+
+| Method | Endpoint    | Description   |
+| ------ | ----------- | ------------- |
+| GET    | /Home       | Get All Posts |
+| POST   | /Create     | Create Post   |
+| DELETE | /Delete/:id | Delete Post   |
+
+### Interaction
+
+| Method | Endpoint   | Description        |
+| ------ | ---------- | ------------------ |
+| POST   | /Home/Like | Like / Unlike Post |
+| POST   | /Home/Save | Save / Unsave Post |
+
+### Profile
+
+| Method | Endpoint        | Description      |
+| ------ | --------------- | ---------------- |
+| GET    | /Profile/:email | Get User Profile |
+
+---
+
+## 🗄 Database Schema (Example)
+
+### userAuth
+
+| Column   | Type    |
+| -------- | ------- |
+| email    | varchar |
+| username | varchar |
+| password | varchar |
+| bio      | text    |
+| address  | varchar |
+
+### blogdata
+
+| Column    | Type    |
+| --------- | ------- |
+| id        | int     |
+| title     | varchar |
+| content   | text    |
+| userEmail | varchar |
+| likes     | int     |
+| likedby   | text    |
+| savedby   | text    |
+
+---
+
+## 🔮 Future Improvements
+
+- Comments System
+- Image Uploads
+- Real‑time Notifications
+- Dark Mode
+- Follow / Unfollow Users
+- Search & Filters
+
+---
+
+## 👨‍💻 Author
+
+**Aryan Shinde**
+
+Student Project – Full Stack Web Development Practice

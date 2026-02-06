@@ -1,59 +1,255 @@
-*{
-    margin: 0;
-    border:0;
-}
-.login-back{
-    height: 100vh;
-    width:100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-image: url(D:\program\react\blogs\client\src\assets\login-back.png);
-}
-.login-front{
-    height: 30%;
-    width: 30%;
-    background:rgba(0,0,0,0.8);
-    color: white;
-    padding: 2%;
-    border-radius: 8px;
+html,body,#root{
+    height:100%;
 }
 
-.login{
+body{
+    margin:0;
+    overflow-x:hidden;
+}
+
+.page{
+    height: auto;
+    width:100%;
+    background: linear-gradient(rgba(16, 16, 16, 0.899), rgba(26, 25, 25, 0.888)),url(../../assets/login-back.png);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+@media (max-height:700px){
+.page{
+    align-items:flex-start;
+}
+}
+
+.login-card{
+    background: linear-gradient(rgba(44, 44, 44, 0.899), rgba(36, 36, 36, 0.888));
+    height: 70%;
+    width: 30%;
+    border-radius: 20px;
+    padding: 2%;
+    color: white;
+    font-family: sans-serif;
+}
+.register-card{
+    height:auto !important;
+    min-height:560px;
+}
+
+.login-content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.login-logo{
+    background-image: url(../../assets/logo.png);
+    height: 100px;
+    width: 100px;
+    background-position: center;
+    background-size: contain;
+    margin-bottom: 3%;
+}
+.logo-wel{
+    font-size: 3rem;
+    font-weight: bold;
+}
+.logo-cont{
+    color: grey;
+    margin-bottom: 8%;
+}
+.login-input{
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    margin-bottom: 5%;
+}
+.login-ask{
+    margin-bottom: 2%;
+    color: rgb(168, 167, 167);
+}
+.login-give{
+    background: linear-gradient(rgba(89, 89, 89, 0.5), rgba(89, 89, 89, 0.5));;
+    height: 50px;
+    border-radius: 10px;
+    font-size: 1.1rem;
     color: white;
     width: 100%;
-    margin-bottom: 10%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 1.5rem;
 }
-.email{
-    display: flex;
-    margin-left: 2%;
-    margin-top: 3%;
-    width: 80%;
+.input-wrap{
+    position:relative;
+    display:flex;
+    align-items:center;
+}
+.input-icon{
+    position:absolute;
+    left:14px;
+    color:#9ca3af;
+    font-size:14px;
+    pointer-events:none;
+    transition:.2s;
+}
+
+.login-give{
+    padding-left:42px !important;
+}
+.input-wrap:focus-within .input-icon{
+    color:#8b5cf6;
 }
 .login-but{
-    margin-top: 8%;
-    height: 10%;
-    width: 100%;
     display: flex;
     justify-content: center;
-    align-items: center;
-}
-button:hover{
-    color: rgb(204, 35, 35);
-    cursor: pointer;
-}
-.register-but{
-    display: flex;
-    margin-top: 6%;
-    height: 10%;
     width: 100%;
-    justify-content: center;
-    align-items: center;
+    margin-bottom: 40px;
 }
-.reg{
+.loggin{
+    color: white;
+    width: 100%;
+    height: 40px;
+    font-size: 1.1rem;
+    background: linear-gradient(340deg,rgb(40, 3, 76),rgb(123, 16, 224)) ;
+    border-radius: 10px;  
+    transition:  0.2s ease-out, transform 0.2s ease-out; 
+}
+.loggin:hover{
     cursor: pointer;
+    transform: scale(1.05);
+}
+.login-reg{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+.log-reg{
+    color: #8b5cf6;
+}
+.log-reg:hover{
+    color: blueviolet;
+    cursor: pointer;
+}
+.privacy{
+    text-align: center;
+    color: grey;
+}
+.page{
+    min-height:100vh;
+    height:auto;
+}
+
+.login-card{
+    min-height:520px;
+    height:auto;
+}
+@media screen and (max-width:600px){
+
+.page{
+    height:auto;
+    min-height:100vh;
+}
+
+.login-card{
+    width:100%;
+    height:auto;
+    padding:20px 16px;
+}
+
+.login-logo{
+    height:70px;
+    width:70px;
+}
+
+.logo-wel{
+    font-size:1.9rem;
+    text-align:center;
+}
+
+.logo-cont{
+    font-size:0.95rem;
+    text-align:center;
+}
+
+.login-give{
+    height:46px;
+    font-size:1rem;
+}
+
+.loggin{
+    height:46px;
+    font-size:1rem;
+}
+
+.login-reg{
+    flex-wrap:wrap;
+    gap:6px;
+    text-align:center;
+}
+
+.privacy{
+    font-size:0.8rem;
+    padding:0 6px;
+}
+}
+
+
+
+@media screen and (min-width:601px) and (max-width:1024px){
+
+
+.login-card{
+    width:55%;
+    height:auto;
+    padding:26px;
+}
+
+.login-logo{
+    height:85px;
+    width:85px;
+}
+
+.logo-wel{
+    font-size:2.4rem;
+    text-align:center;
+}
+
+.logo-cont{
+    text-align:center;
+}
+
+.login-give{
+    height:48px;
+}
+
+.loggin{
+    height:48px;
+    font-size:1.05rem;
+}
+}
+@media screen and (min-width:1025px) and (max-width:1440px){
+
+.login-card{
+    width:420px;
+}
+
+.logo-wel{
+    font-size:2.4rem;
+}
+
+}
+@media screen and (min-width:1025px) and (max-width:1440px){
+
+.login-card{
+    width:420px;
+}
+
+.logo-wel{
+    font-size:2.4rem;
+}
+
+}
+@media screen and (min-width:1025px) and (max-width:1440px){
+
+.register-card{
+    width:420px;
+}
+
 }

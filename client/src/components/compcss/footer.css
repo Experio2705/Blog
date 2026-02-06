@@ -1,0 +1,81 @@
+
+.footer-logo{
+    background-image: url("../../assets/logo.png");
+    height: 50px;
+    width: 50px;
+    background-size: cover;
+}
+
+.footer-main{
+    background: linear-gradient(rgb(40, 3, 76)) ;
+}
+.linked{
+    color: blueviolet;
+}
+.git{
+    color: blueviolet;
+}
+.insta{
+    color: rgb(222, 118, 135);
+}
+@media screen and (max-width:600px){
+
+.footer-upper{
+    flex-direction:column;
+    height:auto !important;
+    padding:18px 10px;
+    text-align:center;
+    gap:10px;
+}
+
+.footer-logo-name{
+    margin-right:0 !important;
+}
+
+.footer-contact-in{
+    margin-right:0 !important;
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:10px;
+}
+
+.footer-upper p{
+    margin-left:0 !important;
+    font-size:0.9rem;
+}
+}
+
+
+
+@media screen and (min-width:601px) and (max-width:1024px){
+
+.footer-upper{
+    flex-wrap:wrap;
+    height:auto !important;
+    padding:18px 20px;
+    justify-content:center;
+    gap:18px;
+}
+
+.footer-logo-name{
+    margin-right:0 !important;
+}
+
+.footer-contact-in{
+    margin-right:0 !important;
+}
+
+.footer-upper p{
+    margin-left:0 !important;
+}
+}
+@media screen and (max-width:600px){
+
+.footer-logo-name{
+    width:auto !important;
+    margin-right:0 !important;
+    text-align:center;
+}
+
+}

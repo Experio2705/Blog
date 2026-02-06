@@ -2,6 +2,8 @@ import React from 'react'
 import axios from 'axios'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faLock ,faEnvelope,faArrowRight,faUser} from '@fortawesome/free-solid-svg-icons'
 
 const Register = () => {
     const [username,setUsername]=useState();
@@ -24,7 +26,7 @@ const Register = () => {
             password:password
         };
         try{
-            await axios.post("http://localhost:8800/Register",user);
+            await axios.post(`${import.meta.env.VITE_API_URL}/Register`,user);
             navigate('/Login');
         }
         catch(err){
@@ -33,48 +35,42 @@ const Register = () => {
         }
     }
   return (
-    <div>
-      <div className="login-back">
-                <div className="login-front">
-                    <div className="login">
-                        <h1>Register</h1>
-                    </div>
-                    <div className="email" >
-                        <h3>Username :</h3>
-                        <input type="text"  placeholder="Enter your username" onChange={(e)=>inputChange1(e)}
-                        style={{background:"transparent",
-                            color:"white", 
-                            border:"2px solid white", 
-                            borderRadius:"5px",
-                            width:"61%"}}></input>
-                    </div>
-                    <div className="email" >
-                        <h3>Email :</h3>
-                        <input type="text"  placeholder="Enter your mail" onChange={(e)=>inputChange2(e)}
-                        style={{background:"transparent",
-                            color:"white", 
-                            border:"2px solid white", 
-                            borderRadius:"5px",
-                            width:"70%"}}></input>
-                    </div>
-                    <div className="email" >
-                        <h3>Password :</h3>
-                        <input type="text"  placeholder="Enter your password" onChange={(e)=>inputChange3(e)}
-                        style={{background:"transparent",
-                            color:"white", 
-                            border:"2px solid white", 
-                            borderRadius:"5px",
-                            width:"62%"}}></input>
-                    </div>
-                    <div className="login-but">
-                        <button onClick={()=>handleChange()} className='reg'
-                            style={{fontSize:"1rem", backgroundColor:"rgba(186, 39, 39, 0.8)",
-                                color:"white", height:"120%", width:"30%",borderRadius:"5px"
-                            }}>Register</button>
-                    </div>
+        <div className="page">
+        <div className="login-card register-card" >
+            <div className="login-content">
+                <div className="login-logo"></div>
+                <p className='logo-wel'>Get Started</p>
+                <p className='logo-cont'>Create your account to begin</p>
                 </div>
-            </div>
-        </div>      
+                        <div className="login-input">
+                 <p className='login-ask'>Username</p>
+                <div className="input-wrap">
+                <FontAwesomeIcon icon={faUser} className="input-icon"/>
+                <input  className='login-give'  type="text" placeholder="you@example.com" onChange={(e)=>inputChange1(e)}/>
+                </div>
+        </div> 
+            <div className="login-input">
+                 <p className='login-ask'>Email Address</p>
+                <div className="input-wrap">
+                <FontAwesomeIcon icon={faEnvelope} className="input-icon"/>
+                <input  className='login-give'  type="text" placeholder="you@example.com" onChange={(e)=>inputChange2(e)}/>
+                </div>
+        </div>     
+        <div className="login-input">
+            <p className='login-ask'>Password</p>
+            <div className="input-wrap">
+            <FontAwesomeIcon icon={faLock} className="input-icon"/>
+            <input  className='login-give'  type="password" placeholder="*********" onChange={(e)=>inputChange3(e)}/>
+        </div>
+        </div>
+        <div className="login-but">
+            <button className='loggin' onClick={()=>handleChange()}>Register<FontAwesomeIcon icon={faArrowRight} style={{color: "#ffffff",marginLeft:"4%"}} /></button>
+        </div>
+        <div className="privacy">
+            <p>By continuing, you agree to ouy Terms of Services and Privacy Policy</p>
+        </div>
+        </div>
+    </div>
   )
 }
 

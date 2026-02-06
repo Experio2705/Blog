@@ -1,0 +1,92 @@
+.profile-content{
+    background:
+            linear-gradient(340deg, rgb(40, 3, 76), rgb(123, 16, 224)) top,
+            linear-gradient(rgb(235, 234, 234), rgb(255, 255, 255)) bottom;
+    background-size: 100% 59%;
+    background-repeat: no-repeat;
+
+    margin: 5% 5% 0% 5%;
+    border-top-left-radius: 10px;
+    border-top-left-radius: 10px;
+    display: flex;
+    padding: 2% 2% 0% 2%;
+    min-height:210px;
+    height:auto;
+    flex-wrap:wrap;
+    align-items: center;
+}
+.profile-info{
+    margin: 0% 5% 3% 5%;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    padding: 0% 6% 2% 6%;
+    min-height:120px;
+    height:auto;
+    align-items: center;
+    background-color: white;
+}
+.profile-info-more{
+    display: flex;
+}
+.recent-actvity{
+     margin: 0% 5% 5% 5%;
+     padding:  3%  5% 2% 5%;
+     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 10px;
+    }
+.recent-actvity:hover {
+    cursor: pointer;
+}
+.prof-title{
+    color:#1253c4;
+}
+.prof-title:hover{
+    color: rgb(89, 32, 142);
+}
+.profile-name p,
+.profile-info p,
+.prof-title{
+    word-break:break-word;
+}
+@media screen and (max-width:900px){
+
+.profile-content{
+    flex-direction:column;
+    text-align:center;
+    gap:14px;
+}
+.profile-content svg{
+    margin-right:0;
+    margin-bottom:6px;
+}
+.profile-info-more{
+    flex-direction:column;
+    gap:6px;
+}
+.profile-name{
+    margin-left:0;
+    margin-top:10px;
+}
+
+.profile-info{
+    padding:16px 14px;
+}
+
+}
+@media screen and (max-width:1200px){
+.profile-content svg{
+    font-size:6rem !important;
+}
+}
+@media screen and (max-width:700px){
+
+.profile-title{
+    align-items:flex-start;
+}
+
+.prof-title{
+    width:100%;
+}
+
+}
+
