@@ -124,7 +124,7 @@ const Home = () => {
       </div>
       <div className="home-blog">
         <div className="home-inside">
-          <img src={`${import.meta.env.VITE_API_URL}/${data.image}`} alt={data.title} className='home-img'></img>
+          <img src={`${import.meta.env.VITE_API_URL}/data.image}`} alt={data.title} className='home-img'></img>
             <div className="home-content">
               <div className="heading-cat-date">
                 <p className='heading-cat'>{data.category}</p>
