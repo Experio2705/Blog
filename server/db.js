@@ -42,7 +42,7 @@ app.get("/", (req, res) => {
 });
 
 app.post("/Register",(req,res)=>{
-    const sql="INSERT INTO userAuth(username,email,password) VALUES(?,?,?)";
+    const sql="INSERT INTO userauth(username,email,password) VALUES(?,?,?)";
     const {username,email,password}=req.body;
     console.log(req.body);
     db.query(sql,[username,email,password],(err,data)=>{
@@ -53,7 +53,7 @@ app.post("/Register",(req,res)=>{
 
 app.post("/Login",(req,res)=>{
     const {email , password}=req.body;
-    const sql="SELECT * FROM userAuth WHERE email=? AND password=?";
+    const sql="SELECT * FROM userauth WHERE email=? AND password=?";
     db.query(sql,[email,password],(err,data)=>{
         if(err) console.log(err);
         if(data.length>0){
@@ -70,7 +70,7 @@ app.post("/Login",(req,res)=>{
 })
 app.post('/Info',(req,res)=>{
     const {bio,address,phone,skills,email}=req.body;
-    const sql='UPDATE userAuth SET bio=?,address=?,phone=?,skills=? WHERE email=?';
+    const sql='UPDATE userauth SET bio=?,address=?,phone=?,skills=? WHERE email=?';
     db.query(sql,[bio,address,phone,skills,email],(err,data)=>{
         if(err) console.log(err);
         res.json(data);
@@ -182,7 +182,7 @@ app.post("/Profile",(req,res)=>{
             b.title,
             b.id
 
-            FROM userAuth u
+            FROM userauth u
             LEFT JOIN blogdata b
             ON u.email = b.userEmail
             WHERE u.email = ?
