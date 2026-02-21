@@ -87,7 +87,7 @@ console.log(data);
             <div className="data">
                 {data.map((items)=>(
                   <div className="card" onClick={()=>handleChange(items.id)} key={items.id}>
-                    <img src={`${import.meta.env.VITE_API_URL}/${items.image}`} alt={items.title} className='card-img'></img>
+                    <img src={items.image} alt={items.title} className='card-img'></img>
                     <div className="data-content" key={items.id}>
                       <div className="cat-like">
                         <p style={{color:"blueviolet",marginBottom:"10px"}}>{items.category}</p>
