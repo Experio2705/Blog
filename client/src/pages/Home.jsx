@@ -95,8 +95,7 @@ const Home = () => {
   useEffect(() => {
     if (!data.id || !userEmail) return;
 
-    axios
-      .get(`${import.meta.env.VITE_API_URL}/Home/SavedStatus`, {
+    axios.get(`${import.meta.env.VITE_API_URL}/Home/SavedStatus`, {
         params: { blog_id: data.id, userEmail }
       })
       .then(res => setSaved(res.data.saved))

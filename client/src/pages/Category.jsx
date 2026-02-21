@@ -12,6 +12,7 @@ const Category = () => {
   const [search,setsearch]=useState('');
   const [select,setselect]=useState('');
   const [data,setdata]=useState([]);
+  const [loading,setloading]=useState(true);
   const inputChange1=(e)=>{
     setsearch(e.target.value);
   }
@@ -30,11 +31,17 @@ const Category = () => {
     }, [search, select]);
   const fetchData = async () => {
     try{
+      setloading(true);
       const res = await axios.get(`${import.meta.env.VITE_API_URL}/Category?search=${search}&select=${select}`);
       const data = res.data;
       setdata(data);
+      setTimeout(() => {
+        setloading(false);
+      }, 1500);
     }
-    catch(err) {console.log(err);
+    catch(err) {
+      console.log(err);
+      setloading(false);
     }
 };
 const handleChange1=()=>{
@@ -83,7 +90,11 @@ console.log(data);
                 </select>
             </div>
           </div>
-          {data.length>0 ? (
+          {loading? (
+              <div className="loader-container">
+              <div className="loader"></div>
+            </div>
+            ):data.length>0 ? (
             <div className="data">
                 {data.map((items)=>(
                   <div className="card" onClick={()=>handleChange(items.id)} key={items.id}>
