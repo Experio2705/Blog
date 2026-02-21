@@ -30,7 +30,8 @@ const Profile = () => {
     const useremail=localStorage.getItem('userEmail');
     const [data,setdata]=useState([]);
     const [saved,setSaved]=useState([]);
-    const [loading,setloading]=useState(true);
+    const [loading1,setloading1]=useState(true);
+    const [loading2,setloading2]=useState(true);
       useEffect(() => {
           const isLoggedIn = localStorage.getItem("isLoggedIn");
           if (!isLoggedIn) {
@@ -41,7 +42,7 @@ const Profile = () => {
     useEffect(() => {
       const fetchProfile = async () => {
           try {
-            setloading(true);
+            setloading1(true);
             const values = { useremail };
             const res = await axios.post(`${import.meta.env.VITE_API_URL}/Profile`,values);
             if (res.data.length > 0) {
@@ -54,7 +55,7 @@ const Profile = () => {
               }
             finally{
               setTimeout(()=>{
-                setloading(false);
+                setloading1(false);
               },800);
             }
           };
@@ -63,6 +64,7 @@ const Profile = () => {
     useEffect(() => {
       const fetchProfile = async () => {
           try {
+            setloading2(true);
             const values = { useremail };
             const res = await axios.post(`${import.meta.env.VITE_API_URL}/Saved`,values);
             if (res.data.length > 0) {
@@ -73,6 +75,11 @@ const Profile = () => {
             catch (err) {
               console.log(err);
               }
+            finally{
+              setTimeout(()=>{
+                setloading2(false);
+              },800);
+            }
           };
       fetchProfile();
       }, []);
@@ -115,7 +122,7 @@ const Profile = () => {
               <p style={{fontSize:"1.5rem",padding:"0% 5% 2% 5%",color:"#545254"}}>Learning, building, and growing every day.</p>
             </div>
           <div className="line" style={{height:"0.3%"}}></div>
-          {loading ? (
+          {loading1 ? (
             <div className="loader-container">
               <div className="loader"></div>
             </div>
@@ -137,8 +144,8 @@ const Profile = () => {
                       </div>
                   </div>
               </div>
-            )
-      {blogs.length>0 ?(
+            )}
+      {loading1? null:blogs.length>0 ?(
         <div className="recent-actvity">
           <p style={{fontSize:"1.6rem",marginBottom:"2%"}}>Recent Activity</p>
           {blogs.map((items)=>(
@@ -157,7 +164,11 @@ const Profile = () => {
           </div>
           )
       }
-      {saved.length>0 ?(
+      {loading2?(
+            <div className="loader-container">
+              <div className="loader"></div>
+            </div>  
+      ):saved.length>0 ?(
         <div className="recent-actvity">
           <p style={{fontSize:"1.6rem",marginBottom:"2%"}}>Saved Blogs</p>
           {saved.map((item)=>(
@@ -177,7 +188,6 @@ const Profile = () => {
           </div>
           )
       }
-    }
     <Footer></Footer>
     </div>
   )
