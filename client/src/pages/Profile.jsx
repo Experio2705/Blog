@@ -126,7 +126,7 @@ const Profile = () => {
             <div className="loader-container">
               <div className="loader"></div>
             </div>
-          ):data.length>0 && (
+          ):(data.length>0 && (
               <div className="profile" >
                 <div className="profile-content">
                   <FontAwesomeIcon icon={faCircleUser} style={{ fontSize: "9.5rem", color: "#053357" }}/>
@@ -144,8 +144,8 @@ const Profile = () => {
                       </div>
                   </div>
               </div>
-            )}
-      {loading1? null:blogs.length>0 ?(
+            ))}
+      {!loading1 &&(blogs.length>0 ?(
         <div className="recent-actvity">
           <p style={{fontSize:"1.6rem",marginBottom:"2%"}}>Recent Activity</p>
           {blogs.map((items)=>(
@@ -162,8 +162,8 @@ const Profile = () => {
           <h1 style={{color:"grey"}}>No Blogs Published</h1>
           <p style={{color:"grey"}}>create blogs to display</p>
           </div>
-          )
-      }
+        )
+      )}
       {loading2?(
             <div className="loader-container">
               <div className="loader"></div>
