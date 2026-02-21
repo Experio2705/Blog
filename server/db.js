@@ -92,7 +92,7 @@ app.post("/CreateBlog",upload.single("image") ,async (req,res)=>{
     const{title,category,description,content,userEmail,userName}=req.body;
      if (!req.file) {
       return res.status(400).json({ error: "No image uploaded" });
-    }y
+    }
     const uploadResult = await new Promise((resolve, reject) => {
       const stream = cloudinary.uploader.upload_stream(
         { folder: "blog_images" },
