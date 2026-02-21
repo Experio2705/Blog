@@ -105,7 +105,7 @@ app.post("/CreateBlog",upload.single("image") ,async (req,res)=>{
       stream.end(req.file.buffer);
     });
 
-    const imageUrl = uploadResult.secure_url;
+    const imageUrl = imageData.secure_url;
     const sql="INSERT INTO blogdata(title,category,description,image,content,userEmail,username,likes) Values(?,?,?,?,?,?,?,?)";
     db.query(sql,[title,category,description,imageUrl,content,userEmail,userName,0],(err,data)=>{
         if(err) console.log(err);
