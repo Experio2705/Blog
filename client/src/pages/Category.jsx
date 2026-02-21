@@ -35,14 +35,15 @@ const Category = () => {
       const res = await axios.get(`${import.meta.env.VITE_API_URL}/Category?search=${search}&select=${select}`);
       const data = res.data;
       setdata(data);
-      setTimeout(() => {
-        setloading(false);
-      }, 1500);
     }
     catch(err) {
       console.log(err);
       setloading(false);
-    }
+    }finally {
+    setTimeout(() => {
+      setloading(false);
+    }, 800);
+  }
 };
 const handleChange1=()=>{
   navigate('/Profile');
