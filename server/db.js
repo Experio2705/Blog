@@ -89,6 +89,7 @@ app.post('/Info',(req,res)=>{
 })
 
 app.post("/CreateBlog",upload.single("image") ,async (req,res)=>{
+    try{
     const{title,category,description,content,userEmail,userName}=req.body;
      if (!req.file) {
       return res.status(400).json({ error: "No image uploaded" });
@@ -111,6 +112,11 @@ app.post("/CreateBlog",upload.single("image") ,async (req,res)=>{
         if(err) console.log(err);
         return res.json(data);
     })
+    }
+    catch(err){
+        console.log("UPLOAD ERROR:", err);
+        res.status(500).json(err);
+    }
 })
 app.get("/Home", (req, res) => {
     const id = req.query.id;
