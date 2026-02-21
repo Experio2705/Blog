@@ -30,6 +30,7 @@ const Profile = () => {
     const useremail=localStorage.getItem('userEmail');
     const [data,setdata]=useState([]);
     const [saved,setSaved]=useState([]);
+    const [loading,setloading]=useState(true);
       useEffect(() => {
           const isLoggedIn = localStorage.getItem("isLoggedIn");
           if (!isLoggedIn) {
@@ -40,6 +41,7 @@ const Profile = () => {
     useEffect(() => {
       const fetchProfile = async () => {
           try {
+            setloading(true);
             const values = { useremail };
             const res = await axios.post(`${import.meta.env.VITE_API_URL}/Profile`,values);
             if (res.data.length > 0) {
@@ -50,6 +52,11 @@ const Profile = () => {
             catch (err) {
               console.log(err);
               }
+            finally{
+              setTimeout(()=>{
+                setloading(false);
+              },800);
+            }
           };
       fetchProfile();
       }, []);
@@ -108,7 +115,11 @@ const Profile = () => {
               <p style={{fontSize:"1.5rem",padding:"0% 5% 2% 5%",color:"#545254"}}>Learning, building, and growing every day.</p>
             </div>
           <div className="line" style={{height:"0.3%"}}></div>
-            {data.length>0 && (
+          {loading ? (
+            <div className="loader-container">
+              <div className="loader"></div>
+            </div>
+          ):data.length>0 && (
               <div className="profile" >
                 <div className="profile-content">
                   <FontAwesomeIcon icon={faCircleUser} style={{ fontSize: "9.5rem", color: "#053357" }}/>
@@ -126,8 +137,8 @@ const Profile = () => {
                       </div>
                   </div>
               </div>
-            )}
-    {blogs.length>0 ?(
+            )
+      {blogs.length>0 ?(
         <div className="recent-actvity">
           <p style={{fontSize:"1.6rem",marginBottom:"2%"}}>Recent Activity</p>
           {blogs.map((items)=>(
@@ -139,7 +150,7 @@ const Profile = () => {
               ))}
           </div>
         ):(
-        <div className="data-absent" style={{margin:"0% 5% 2% 5%",height:"30%",boxShadow:"0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",borderRadius:"10px"}}>
+        <div className="data-absent" style={{margin:"0% 5% 2% 5%",height:"45%",boxShadow:"0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",borderRadius:"10px"}}>
           <p style={{fontSize:"5.4rem",marginBottom:""}}><FontAwesomeIcon icon={faFaceFrown} style={{color: "#3a5a92",}} /></p>
           <h1 style={{color:"grey"}}>No Blogs Published</h1>
           <p style={{color:"grey"}}>create blogs to display</p>
@@ -159,13 +170,14 @@ const Profile = () => {
               ))}
           </div>
         ):(
-        <div className="data-absent" style={{margin:"0% 5% 2% 5%",height:"30%",boxShadow:"0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",borderRadius:"10px"}}>
+        <div className="data-absent" style={{margin:"0% 5% 2% 5%",height:"45%",boxShadow:"0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",borderRadius:"10px"}}>
           <p style={{fontSize:"5.4rem",marginBottom:""}}><FontAwesomeIcon icon={faFaceFrown} style={{color: "#3a5a92",}} /></p>
           <h1 style={{color:"grey"}}>No Blogs Saved</h1>
           <p style={{color:"grey"}}>Save blogs to display</p>
           </div>
           )
       }
+    }
     <Footer></Footer>
     </div>
   )
