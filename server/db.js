@@ -3,8 +3,9 @@ import mysql from "mysql2"
 import cors from "cors";
 import multer from "multer";
 import dotenv from "dotenv";
-import cloudinary from "cloudinary";
-import { CloudinaryStorage } from "multer-storage-cloudinary";
+import { v2 as cloudinary } from "cloudinary";
+import pkg from "multer-storage-cloudinary";
+const { CloudinaryStorage } = pkg;
 dotenv.config();
 
 
@@ -44,7 +45,7 @@ db.connect(err=>{
 //   }
 // });
 const storage = new CloudinaryStorage({
-    cloudinary: cloudinary.v2,
+    cloudinary: cloudinary,
     params: {
         folder: "blog_images",
         allowed_formats: ["jpg", "png", "jpeg"],
