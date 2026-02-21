@@ -93,19 +93,19 @@ app.post("/CreateBlog",upload.single("image") ,async (req,res)=>{
      if (!req.file) {
       return res.status(400).json({ error: "No image uploaded" });
     }
-    const uploadResult = await new Promise((resolve, reject) => {
+      const imageData = await new Promise((resolve, reject) => {
       const stream = cloudinary.uploader.upload_stream(
         { folder: "blog_images" },
         (error, result) => {
-          if (error) reject(error);
-          else resolve(result);
+          if (error) return reject(error);
+          resolve(result);
         }
       );
 
       stream.end(req.file.buffer);
-
-      const imageUrl = uploadResult.secure_url;
     });
+
+    const imageUrl = uploadResult.secure_url;
     const sql="INSERT INTO blogdata(title,category,description,image,content,userEmail,username,likes) Values(?,?,?,?,?,?,?,?)";
     db.query(sql,[title,category,description,imageUrl,content,userEmail,userName,0],(err,data)=>{
         if(err) console.log(err);
