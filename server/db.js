@@ -4,8 +4,6 @@ import cors from "cors";
 import multer from "multer";
 import dotenv from "dotenv";
 import { v2 as cloudinary } from "cloudinary";
-import multerStorageCloudinary from "multer-storage-cloudinary";
-const CloudinaryStorage = multerStorageCloudinary.CloudinaryStorage;
 dotenv.config();
 
 
@@ -44,12 +42,8 @@ db.connect(err=>{
 //     cb(null, Date.now() + "-" + file.originalname);
 //   }
 // });
-const storage = new CloudinaryStorage({
-    cloudinary: cloudinary,
-    params: {
-        folder: "blog_images",
-        allowed_formats: ["jpg", "png", "jpeg"],
-    },
+const storage = multer({
+    storage:multer.memoryStorage(),
     });
 
 const upload = multer({ storage });
@@ -94,9 +88,22 @@ app.post('/Info',(req,res)=>{
     })
 })
 
-app.post("/CreateBlog",upload.single("image") ,(req,res)=>{
+app.post("/CreateBlog",upload.single("image") ,async (req,res)=>{
     const{title,category,description,content,userEmail,userName}=req.body;
-    const imageUrl=req.file.path;
+     if (!req.file) {
+      return res.status(400).json({ error: "No image uploaded" });
+    }y
+    const uploadResult = await new Promise((resolve, reject) => {
+      const stream = cloudinary.uploader.upload_stream(
+        { folder: "blog_images" },
+        (error, result) => {
+          if (error) reject(error);
+          else resolve(result);
+        }
+      );
+
+      stream.end(req.file.buffer);
+    });
     const sql="INSERT INTO blogdata(title,category,description,image,content,userEmail,username,likes) Values(?,?,?,?,?,?,?,?)";
     db.query(sql,[title,category,description,imageUrl,content,userEmail,userName,0],(err,data)=>{
         if(err) console.log(err);
