@@ -42,11 +42,11 @@ db.connect(err=>{
 //     cb(null, Date.now() + "-" + file.originalname);
 //   }
 // });
-const storage = multer({
+const upload = multer({
     storage:multer.memoryStorage(),
     });
 
-const upload = multer({ storage });
+// const upload = multer({ storage });
 
 app.get("/", (req, res) => {
   res.send("Backend is running fine");
@@ -103,6 +103,8 @@ app.post("/CreateBlog",upload.single("image") ,async (req,res)=>{
       );
 
       stream.end(req.file.buffer);
+
+      const imageUrl = uploadResult.secure_url;
     });
     const sql="INSERT INTO blogdata(title,category,description,image,content,userEmail,username,likes) Values(?,?,?,?,?,?,?,?)";
     db.query(sql,[title,category,description,imageUrl,content,userEmail,userName,0],(err,data)=>{
