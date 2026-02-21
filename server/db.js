@@ -4,8 +4,8 @@ import cors from "cors";
 import multer from "multer";
 import dotenv from "dotenv";
 import { v2 as cloudinary } from "cloudinary";
-import pkg from "multer-storage-cloudinary";
-const { CloudinaryStorage } = pkg;
+import multerStorageCloudinary from "multer-storage-cloudinary";
+const CloudinaryStorage = multerStorageCloudinary.CloudinaryStorage;
 dotenv.config();
 
 
