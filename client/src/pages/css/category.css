@@ -135,7 +135,7 @@
 }
 }
 .loader-container {
-  height: 60vh;
+  height: 50vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -143,7 +143,7 @@
 
 .loader {
   border: 6px solid #0c0c0c;
-  border-top: 60px solid #3a5a92;
+  border-top: 6px solid #3a5a92;
   border-radius: 50%;
   width: 60px;
   height: 60px;
