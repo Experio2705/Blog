@@ -5,6 +5,7 @@ import multer from "multer";
 import dotenv from "dotenv";
 dotenv.config();
 
+
 const app=express();
 app.use(cors({
   origin: "https://blog-epla.vercel.app",
@@ -13,7 +14,13 @@ app.use(cors({
 }));
 app.options(/.*/, cors());
 
-
+const cloudinary=require("cloudinary").v2;
+const {cloudinary}=require("multer-storage-cloudinary");
+cloudinary.config({
+    cloud_name: process.env.CLOUD_NAME,
+    api_key: process.env.API_KEY,
+    api_secret: process.env.API_SECRET,
+});
 app.use(express.json());
 app.use("/uploads", express.static("uploads"));
 
@@ -30,12 +37,20 @@ db.connect(err=>{
   else console.log("DB CONNECTED");
 });
 
-const storage = multer.diskStorage({
-  destination: "uploads/",
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + "-" + file.originalname);
-  }
-});
+// const storage = multer.diskStorage({
+//   destination: "uploads/",
+//   filename: (req, file, cb) => {
+//     cb(null, Date.now() + "-" + file.originalname);
+//   }
+// });
+const storage = new CloudinaryStorage({
+    cloudinary: cloudinary,
+    params: {
+        folder: "blog_images",
+        allowed_formats: ["jpg", "png", "jpeg"],
+    },
+    });
+
 const upload = multer({ storage });
 
 app.get("/", (req, res) => {
@@ -80,9 +95,9 @@ app.post('/Info',(req,res)=>{
 
 app.post("/CreateBlog",upload.single("image") ,(req,res)=>{
     const{title,category,description,content,userEmail,userName}=req.body;
+    const imageUrl=req.file.path;
     const sql="INSERT INTO blogdata(title,category,description,image,content,userEmail,username,likes) Values(?,?,?,?,?,?,?,?)";
-    const imagePath=req.file.path;
-    db.query(sql,[title,category,description,imagePath,content,userEmail,userName,0],(err,data)=>{
+    db.query(sql,[title,category,description,imageUrl,content,userEmail,userName,0],(err,data)=>{
         if(err) console.log(err);
         return res.json(data);
     })
