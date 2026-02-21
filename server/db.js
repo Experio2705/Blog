@@ -15,7 +15,7 @@ app.use(cors({
 app.options(/.*/, cors());
 
 const cloudinary=require("cloudinary").v2;
-const {cloudinary}=require("multer-storage-cloudinary");
+const {CloudinaryStorage}=require("multer-storage-cloudinary");
 cloudinary.config({
     cloud_name: process.env.CLOUD_NAME,
     api_key: process.env.API_KEY,
