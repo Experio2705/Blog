@@ -17,7 +17,6 @@ app.use(cors({
   credentials: true
 }));
 app.options(/.*/, cors());
-app.use('/', otpRoutes);
 cloudinary.config({
     cloud_name: process.env.CLOUD_NAME,
     api_key: process.env.API_KEY,
@@ -25,7 +24,7 @@ cloudinary.config({
 });
 app.use(express.json());
 app.use("/uploads", express.static("uploads"));
-
+app.use('/', otpRoutes);
 const db = mysql.createConnection({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
