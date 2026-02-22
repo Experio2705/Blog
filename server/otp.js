@@ -1,70 +1,58 @@
-import express from 'express'
-import { Resend } from 'resend'
+import express from 'express';
+import nodemailer from 'nodemailer';
 
-const router = express.Router()
-const resend = new Resend(process.env.RESEND_API_KEY)
-
-const generateOtp = () => {
-    return Math.floor(1000 + Math.random() * 9000)
+const app=express.Router();
+const generateOtp=()=>{
+    return Math.floor(1000+Math.random()*9000);
 }
-
-let otpStore = {}
-
-router.post('/set-otp', async (req, res) => {
+let otpStore={};
+app.post('/set-otp',async(req,res)=>{
     console.log("SET OTP HIT")
-
-    const { email } = req.body
-
-    if (!email) {
-        return res.status(400).json({ message: "Email is required" })
-    }
-
-    const otp = generateOtp()
-
-    otpStore[email] = {
+    const {email}=req.body;
+    const otp=generateOtp();
+    otpStore[email]={
         otp,
-        expire: Date.now() + 5 * 60 * 1000
+        expire:Date.now()+50*60*1000
     }
 
-    try {
-        await resend.emails.send({
-            from: 'blogapppr@gmail.com', 
-            to: email,
-            subject: 'OTP Verification',
-            html: `<h2>Your OTP is: ${otp}</h2>`
+    const transport=nodemailer.createTransport({
+        service:"gmail",
+        port: 587,
+        secure: false,
+
+        auth:{
+            user:"blogapppr@gmail.com",
+            pass:process.env.EMAIL_PASS            
+        }
+    });
+    try{
+        await transport.sendMail({
+            from:'blogapppr@gmail.com',
+            to:email,
+            subject:'blog Otp Verification',
+            text:`Your Otp is ${otp}`
         })
-
-        console.log("Email sent via Resend")
-
-        res.json({ message: "OTP sent successfully!" })
-
-    } catch (err) {
-        console.error("Resend error:", err)
-        res.status(500).json({ message: "Failed to send OTP" })
+        res.json({ message: "OTP sent successfully !" });
+    }
+    catch(err){
+        console.log(err);
     }
 })
 
-router.post('/verify-otp', (req, res) => {
-    const { email, otp } = req.body
-
-    if (!email || !otp) {
-        return res.status(400).json({ message: "Missing email or OTP" })
+app.post('/verify-otp',(req,res)=>{
+    const {email,otp}=req.body;
+    const checkotp=otpStore[email];
+    if(!checkotp || checkotp.otp!=otp){
+        return res.json({message:'invald'});
     }
-
-    const checkotp = otpStore[email]
-
-    if (!checkotp || checkotp.otp != otp) {
-        return res.json({ message: "invalid" })
-    }
-
     if (Date.now() > checkotp.expire) {
-        delete otpStore[email]
-        return res.json({ message: "expired" })
+        delete otpStore[email];
+        return res.json({ message: "expired" });
     }
+    delete otpStore[email];
 
-    delete otpStore[email]
+    res.json({message:'verified'})
+});
+const PORT=process.env.PORT||8800;
 
-    res.json({ message: "verified" })
-})
-
-export default router
+export default app
