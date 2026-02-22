@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { use, useEffect } from 'react'
 import axios from 'axios'
-import { useState } from 'react'
+import { useState,useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLock ,faEnvelope,faArrowRight,faUser} from '@fortawesome/free-solid-svg-icons'
@@ -10,6 +10,8 @@ const Register = () => {
     const [email,setEmail]=useState();
     const [password,setPassword]=useState();
     const [message, setMessage] = useState({ text: '', type: '' });
+    const [showOtpField,setShowOtpField]=useState(false);
+    const [otp,setOtp]=useState();
     const navigate=useNavigate();
     const inputChange1=(e)=>{
         setUsername(e.target.value);
@@ -19,6 +21,9 @@ const Register = () => {
     }
     const inputChange3=(e)=>{
         setPassword(e.target.value);
+    }
+    const inputChange4=(e)=>{
+        setOtp(e.target.value)
     }
     const handleChange=async()=>{
         const checkmail=/^[a-zA-Z0-9.]{5,}@gmail\.com$/;
@@ -40,10 +45,31 @@ const Register = () => {
             email:email,
             password:password
         };
+        const value ={email};
         try{
             await axios.post(`${import.meta.env.VITE_API_URL}/Register`,user);
-            setMessage({text:'Successfully Registered !',type:'success'});
-            navigate('/Login'); 
+            const res=await axios.post(`${import.meta.env.VITE_API_URL}/set-otp`,value);
+            setShowOtpField(true);
+            setMessage({text:res.data.message,type:'success'});
+        }
+        catch(err){
+            console.log(err);
+            setMessage({text:err,type:'error'});
+        }
+    }
+    const verifychange=async()=>{
+        const value={email,otp}
+        try{
+            const res=await axios.post(`${import.meta.env.VITE_API_URL}/verify-otp`,value);
+            if(res.data.message=='verified'){
+                navigate('/Login'); 
+            }
+            else if(res.data.message=='expired'){
+                setMessage({text:'Otp Expired !',type:'error'});
+            }
+            else{
+                setMessage({text:'Invalid Otp !',type:'error'});
+            }
         }
         catch(err){
             console.log(err);
@@ -67,7 +93,7 @@ const Register = () => {
                 <p className='logo-wel'>Get Started</p>
                 <p className='logo-cont'>Create your account to begin</p>
                 </div>
-                        <div className="login-input">
+                <div className="login-input">
                  <p className='login-ask'>Username</p>
                 <div className="input-wrap">
                 <FontAwesomeIcon icon={faUser} className="input-icon"/>
@@ -91,6 +117,18 @@ const Register = () => {
         <div className="login-but">
             <button className='loggin' onClick={()=>handleChange()}>Register<FontAwesomeIcon icon={faArrowRight} style={{color: "#ffffff",marginLeft:"4%"}} /></button>
         </div>
+        {showOtpField && (
+            <div className="verifybutton" style={{display:'flex',justifyContent:'space-around'}}>
+                <div className="login-input" style={{width:'50%'}}>
+                    <div className="input-wrap">
+                        <FontAwesomeIcon icon={faLock} className="input-icon"/>
+                        <input className='login-give' style={{height:"40px"}} type="number" placeholder="Enter Otp" onChange={(e)=>inputChange4(e)}/>
+                </div>
+            </div>
+            <div className="login-but" style={{width:'50%'}}>
+                <button className='loggin' style={{width:"50%"}} onClick={()=>verifychange()}>Verify<FontAwesomeIcon icon={faArrowRight} style={{color: "#ffffff",marginLeft:"4%"}} /></button>
+            </div>                
+            </div>)}
         <div className="privacy">
             <p>By continuing, you agree to ouy Terms of Services and Privacy Policy</p>
         </div>
