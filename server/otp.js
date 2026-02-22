@@ -1,19 +1,7 @@
 import express from 'express';
-import cors from 'cors';
-import dotenv from "dotenv";
 import nodemailer from 'nodemailer';
 
-dotenv.config();
-
-const app=express();
-app.use(cors({
-  origin: "https://blog-epla.vercel.app",
-  methods: ["GET","POST","PUT","DELETE"],
-  credentials: true
-}));
-app.options(/.*/, cors());
-
-app.use(express.json());
+const app=express.Router();
 const generateOtp=()=>{
     return Math.floor(1000+Math.random()*9000);
 }
@@ -63,6 +51,4 @@ app.post('/verify-otp',(req,res)=>{
 });
 const PORT=process.env.PORT||8800;
 
-app.listen(PORT,()=>{
-    console.log("Server running on:",PORT);
-})
+export default app
