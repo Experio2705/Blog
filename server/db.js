@@ -7,8 +7,10 @@ import { v2 as cloudinary } from "cloudinary";
 import otpRoutes from './otp.js';
 dotenv.config();
 
-app.use('/', otpRoutes)
+
 const app=express();
+
+app.use('/', otpRoutes)
 app.use(cors({
   origin: "https://blog-epla.vercel.app",
   methods: ["GET","POST","PUT","DELETE"],
