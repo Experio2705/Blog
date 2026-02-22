@@ -1,6 +1,6 @@
 import React from 'react'
 import axios from 'axios';
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './css/Login.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -46,6 +46,7 @@ export default function Login(){
         
         if(res.data.message){
             setMessage({text:res.data.message,type:'error'});
+            console.log(message);
         }
         else{
             localStorage.setItem("userEmail",res.data.email)
@@ -64,9 +65,14 @@ export default function Login(){
             setMessage({text:err,type:'error'});
         }
     }
-    setTimeout(()=>{
-        setMessage({text:'',type:''});
-    },5000);
+    useEffect(()=>{
+        if(message.text){
+            const timer=setTimeout(()=>{
+                setMessage({text:'',type:''});
+            },5000);
+            return ()=>clearTimeout(timer);
+        }
+    },[message])
   return (
     <div className="page">
         {message.text &&(<div className={`error-box ${message.type}`}>{message.text}</div>)}

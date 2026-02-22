@@ -50,9 +50,14 @@ const Register = () => {
             setMessage({text:err,type:'error'});
         }
     }
-    setTimeout(()=>{
-        setMessage({text:'',type:''});
-    },5000);
+    useEffect(()=>{
+        if(message.text){
+            const timer=setTimeout(()=>{
+                setMessage({text:'',type:''});
+            },5000);
+            return ()=>clearTimeout(timer);
+        }
+    },[message])
   return (
         <div className="page">
         {message.text &&(<div className={`error-box ${message.type}`}>{message.text}</div>)}
