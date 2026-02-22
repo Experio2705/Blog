@@ -4,7 +4,7 @@ import cors from "cors";
 import multer from "multer";
 import dotenv from "dotenv";
 import { v2 as cloudinary } from "cloudinary";
-import {otpRoutes} from './otp.js';
+import otpRoutes from './otp.js';
 dotenv.config();
 
 app.use('/', otpRoutes)
