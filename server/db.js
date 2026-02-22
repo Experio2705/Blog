@@ -16,8 +16,8 @@ app.use(cors({
   methods: ["GET","POST","PUT","DELETE","OPTIONS"],
   credentials: true
 }));
-app.options('*', cors());
-app.use('/', otpRoutes)
+app.options(/.*/, cors());
+app.use('/', otpRoutes);
 cloudinary.config({
     cloud_name: process.env.CLOUD_NAME,
     api_key: process.env.API_KEY,
