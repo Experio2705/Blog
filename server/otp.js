@@ -7,6 +7,7 @@ const generateOtp=()=>{
 }
 let otpStore={};
 app.post('/set-otp',async(req,res)=>{
+    console.log("SET OTP HIT")
     const {email}=req.body;
     const otp=generateOtp();
     otpStore[email]={
@@ -16,6 +17,9 @@ app.post('/set-otp',async(req,res)=>{
 
     const transport=nodemailer.createTransport({
         service:"gmail",
+        port: 587,
+        secure: false,
+
         auth:{
             user:"blogapppr@gmail.com",
             pass:process.env.EMAIL_PASS            
