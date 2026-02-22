@@ -10,14 +10,14 @@ dotenv.config();
 
 const app=express();
 
-app.use('/', otpRoutes)
+
 app.use(cors({
   origin: "https://blog-epla.vercel.app",
-  methods: ["GET","POST","PUT","DELETE"],
+  methods: ["GET","POST","PUT","DELETE","OPTIONS"],
   credentials: true
 }));
-app.options(/.*/, cors());
-
+app.options('*', cors());
+app.use('/', otpRoutes)
 cloudinary.config({
     cloud_name: process.env.CLOUD_NAME,
     api_key: process.env.API_KEY,
