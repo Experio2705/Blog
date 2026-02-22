@@ -9,6 +9,7 @@ const Register = () => {
     const [username,setUsername]=useState();
     const [email,setEmail]=useState();
     const [password,setPassword]=useState();
+    const [message, setMessage] = useState({ text: '', type: '' });
     const navigate=useNavigate();
     const inputChange1=(e)=>{
         setUsername(e.target.value);
@@ -20,6 +21,20 @@ const Register = () => {
         setPassword(e.target.value);
     }
     const handleChange=async()=>{
+        const checkmail=/^[a-zA-Z0-9.]{5,}@gmail\.com$/;
+        const checkpass=/^[a-zA-Z0-9@./$%&*()]{8,}$/;
+        if(!checkmail.test(email) && !checkpass.test(password)){
+            setMessage({text:'Invalid Mail format and Pass>=8',type:'error'});
+            return;
+        }
+        else if(!checkmail.test(email)){
+            setMessage({text:'Invalid Mail format',type:'error'});
+            return;
+        }
+        else if(!checkpass.test(password)){
+            setMessage({text:'Password Greater than 8 Charachters',type:'error'});
+            return;
+        }
         const user ={
             username:username,
             email:email,
@@ -27,15 +42,20 @@ const Register = () => {
         };
         try{
             await axios.post(`${import.meta.env.VITE_API_URL}/Register`,user);
-            navigate('/Login');
+            setMessage({text:'Successfully Registered !',type:'success'});
+            navigate('/Login'); 
         }
         catch(err){
             console.log(err);
-            alert(err);
+            setMessage({text:err,type:'error'});
         }
     }
+    setTimeout(()=>{
+        setMessage({text:'',type:''});
+    },5000);
   return (
         <div className="page">
+        {message.text &&(<div className={`error-box ${message.type}`}>{message.text}</div>)}
         <div className="login-card register-card" >
             <div className="login-content">
                 <div className="login-logo"></div>
@@ -53,7 +73,7 @@ const Register = () => {
                  <p className='login-ask'>Email Address</p>
                 <div className="input-wrap">
                 <FontAwesomeIcon icon={faEnvelope} className="input-icon"/>
-                <input  className='login-give'  type="text" placeholder="you@example.com" onChange={(e)=>inputChange2(e)}/>
+                <input  className='login-give'  type="email" placeholder="you@example.com" onChange={(e)=>inputChange2(e)}/>
                 </div>
         </div>     
         <div className="login-input">

@@ -10,6 +10,7 @@ export default function Login(){
   const [remember,setRemember]=useState(false);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [message, setMessage] = useState({ text: '', type: '' });
     const navigate=useNavigate();
     const handleChange2=()=>{
         navigate('/Register');
@@ -23,6 +24,20 @@ export default function Login(){
         console.log(e.target.value);
     }
     const handleChange1=async()=>{
+        const checkmail=/^[a-zA-Z0-9.]{5,}@gmail\.com$/;
+        const checkpass=/^[a-zA-Z0-9@./$%&*()]{8,}$/;
+        if(!checkmail.test(email) && !checkpass.test(password)){
+            setMessage({text:'Invalid Mail format and Pass>=8',type:'error'});
+            return;
+        }
+        else if(!checkmail.test(email)){
+            setMessage({text:'Invalid Mail format',type:'error'});
+            return;
+        }
+        else if(!checkpass.test(password)){
+            setMessage({text:'Password Greater than 8 Charachters',type:'error'});
+            return;
+        }
         try{
             const res=await axios.post(`${import.meta.env.VITE_API_URL}/Login`,{
                 email,
@@ -30,13 +45,13 @@ export default function Login(){
             });
         
         if(res.data.message){
-            alert(res.data.message);
+            setMessage({text:res.data.message,type:'error'});
         }
         else{
             localStorage.setItem("userEmail",res.data.email)
             localStorage.setItem("userName",res.data.username)
             localStorage.setItem("isLoggedIn", "true");
-
+            setMessage({text:'Successfully Registered !',type:'success'});
             if (res.data.needsInfo) {
                  navigate("/Info", { replace: true });
             } else {
@@ -46,11 +61,15 @@ export default function Login(){
         }
         catch(err){
             console.log(err);
-            alert(err);
+            setMessage({text:err,type:'error'});
         }
     }
+    setTimeout(()=>{
+        setMessage({text:'',type:''});
+    },5000);
   return (
     <div className="page">
+        {message.text &&(<div className={`error-box ${message.type}`}>{message.text}</div>)}
         <div className="login-card">
             <div className="login-content">
                 <div className="login-logo"></div>
