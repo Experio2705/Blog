@@ -130,5 +130,5 @@ app.post("/verify-otp", (req, res) => {
 
   res.json({ message: "verified" });
 });
-
+console.log(process.env.BREVO_API_KEY);
 export default app;
