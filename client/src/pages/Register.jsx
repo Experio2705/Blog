@@ -10,9 +10,8 @@ const Register = () => {
     const [email,setEmail]=useState();
     const [password,setPassword]=useState();
     const [message, setMessage] = useState({ text: '', type: '' });
-    const [showOtpField,setShowOtpField]=useState(false);
-    const [otp,setOtp]=useState();
     const navigate=useNavigate();
+
     const inputChange1=(e)=>{
         setUsername(e.target.value);
     }
@@ -22,12 +21,11 @@ const Register = () => {
     const inputChange3=(e)=>{
         setPassword(e.target.value);
     }
-    const inputChange4=(e)=>{
-        setOtp(e.target.value)
-    }
+
     const handleChange=async()=>{
         const checkmail=/^[a-zA-Z0-9.]{5,}@gmail\.com$/;
         const checkpass=/^[a-zA-Z0-9@./$%&*()]{8,}$/;
+
         if(!checkmail.test(email) && !checkpass.test(password)){
             setMessage({text:'Invalid Mail format and Pass>=8',type:'error'});
             return;
@@ -40,42 +38,24 @@ const Register = () => {
             setMessage({text:'Password Greater than 8 Charachters',type:'error'});
             return;
         }
+
         const user ={
             username:username,
             email:email,
             password:password
         };
-        const value ={email};
+
         try{
             await axios.post(`${import.meta.env.VITE_API_URL}/Register`,user);
-            const res=await axios.post(`${import.meta.env.VITE_API_URL}/set-otp`,value);
-            setShowOtpField(true);
-            setMessage({text:res.data.message,type:'success'});
+            setMessage({text:'Registered Successfully',type:'success'});
+            navigate('/Login');
         }
         catch(err){
             console.log(err);
-            setMessage({text:err,type:'error'});
+            setMessage({text:'Registration Failed',type:'error'});
         }
     }
-    const verifychange=async()=>{
-        const value={email,otp}
-        try{
-            const res=await axios.post(`${import.meta.env.VITE_API_URL}/verify-otp`,value);
-            if(res.data.message=='verified'){
-                navigate('/Login'); 
-            }
-            else if(res.data.message=='expired'){
-                setMessage({text:'Otp Expired !',type:'error'});
-            }
-            else{
-                setMessage({text:'Invalid Otp !',type:'error'});
-            }
-        }
-        catch(err){
-            console.log(err);
-            setMessage({text:err,type:'error'});
-        }
-    }
+
     useEffect(()=>{
         if(message.text){
             const timer=setTimeout(()=>{
@@ -84,6 +64,7 @@ const Register = () => {
             return ()=>clearTimeout(timer);
         }
     },[message])
+
   return (
         <div className="page">
         {message.text &&(<div className={`error-box ${message.type}`}>{message.text}</div>)}
@@ -117,18 +98,6 @@ const Register = () => {
         <div className="login-but">
             <button className='loggin' onClick={()=>handleChange()}>Register<FontAwesomeIcon icon={faArrowRight} style={{color: "#ffffff",marginLeft:"4%"}} /></button>
         </div>
-        {showOtpField && (
-            <div className="verifybutton" style={{display:'flex',justifyContent:'space-around'}}>
-                <div className="login-input" style={{width:'50%'}}>
-                    <div className="input-wrap">
-                        <FontAwesomeIcon icon={faLock} className="input-icon"/>
-                        <input className='login-give' style={{height:"40px"}} type="number" placeholder="Enter Otp" onChange={(e)=>inputChange4(e)}/>
-                </div>
-            </div>
-            <div className="login-but" style={{width:'50%'}}>
-                <button className='loggin' style={{width:"50%"}} onClick={()=>verifychange()}>Verify<FontAwesomeIcon icon={faArrowRight} style={{color: "#ffffff",marginLeft:"4%"}} /></button>
-            </div>                
-            </div>)}
         <div className="privacy">
             <p>By continuing, you agree to ouy Terms of Services and Privacy Policy</p>
         </div>

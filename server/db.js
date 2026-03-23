@@ -3,7 +3,6 @@ import cors from "cors"
 import multer from "multer"
 import dotenv from "dotenv"
 import { createClient } from "@supabase/supabase-js"
-import otpRoutes from "./otp.js"
 
 dotenv.config()
 
