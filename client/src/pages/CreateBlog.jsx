@@ -23,7 +23,7 @@ const createBlog = () => {
   const handleChange4=()=>{
     navigate('/Contact');
   }
-  const [image, setImage] = useState('');
+  const [image, setImage] = useState(null);
   const [preview,setpreview] =useState('');
   const [title,settitle] =useState('');
   const [category,setcategory]=useState('');
@@ -120,7 +120,7 @@ const createBlog = () => {
                         </div>
                     </div> 
                     <div className="final-button" >
-                    <button className='final-but' onClick={()=>publishChange()}>Publish</button>
+                    <button className='final-but'  onClick={publishChange}>Publish</button>
                   </div>
             </div>
           </div>
