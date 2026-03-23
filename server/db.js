@@ -16,7 +16,6 @@ app.use(cors({
 app.options(/.*/, cors())
 
 app.use(express.json())
-app.use('/', otpRoutes)
 
 const supabase = createClient(
   process.env.SUPABASE_URL,
