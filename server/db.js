@@ -89,7 +89,10 @@ app.post("/CreateBlog", upload.single("image"), async (req,res)=>{
         contentType: req.file.mimetype
       })
 
-    if(uploadError) return res.status(500).json(uploadError)
+    if(uploadError){
+      console.log(uploadError);
+      return res.status(500).json(uploadError);
+    } 
 
     const { data: publicUrlData } = supabase
       .storage
@@ -111,11 +114,14 @@ app.post("/CreateBlog", upload.single("image"), async (req,res)=>{
         likes: 0
       }])
 
-    if(error) return res.json(error)
-
+    if(error) {
+      console.log(error)
+      return res.json(error);
+    }
     res.json(data)
   }
   catch(err){
+    console.log(err);
     res.status(500).json(err)
   }
 })

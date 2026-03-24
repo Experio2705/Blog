@@ -59,6 +59,8 @@ const createBlog = () => {
     formData.append("userName",userName);
       await axios.post(`${import.meta.env.VITE_API_URL}/CreateBlog`,formData);
       window.location.reload();
+      console.log("➡️ createBlog API called");
+      console.log("Body:", req.body);
     }
     catch(err){
       if(err) alert(err);
