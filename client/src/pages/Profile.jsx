@@ -158,7 +158,7 @@ const Profile = () => {
               ))}
           </div>
         ):(
-        <div className="data-absent" style={{margin:"0% 5% 2% 5%",height:"55%",boxShadow:"0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",borderRadius:"10px"}}>
+        <div className="data-absent" style={{margin:"0% 5% 2% 5%",height:"65%",boxShadow:"0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",borderRadius:"10px"}}>
           <p style={{fontSize:"5.4rem",marginBottom:""}}><FontAwesomeIcon icon={faFaceFrown} style={{color: "#3a5a92",}} /></p>
           <h1 style={{color:"grey"}}>No Blogs Published</h1>
           <p style={{color:"grey"}}>create blogs to display</p>
