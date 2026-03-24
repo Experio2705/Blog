@@ -97,7 +97,7 @@ const Profile = () => {
   }
   const blogs = data.filter(item => item.id !== null);
   return (
-    <div className='about-us-outer' style={{fontFamily:"sans-serif"}}>
+    <div className='profile-outer' style={{fontFamily:"sans-serif"}}>
             <div className="home-navbar-top" >
                 <div className="home-logo" style={{marginRight:"27%"}}>
                     <div className="home-logo-sym"></div>
@@ -116,6 +116,7 @@ const Profile = () => {
                     <button className='home-but2' onClick={()=>handleChange5()}>Log Out</button>
                 </div>
             </div>
+        <div className="profile-content-main">
           <div className="line" style={{height:"0.3%"}}></div>
           <div className='profile-slogan' >
               <p style={{fontSize:"3rem",padding:"2% 5% 0% 5%"}}>Profile</p>
@@ -188,6 +189,7 @@ const Profile = () => {
           </div>
           )
       }
+      </div>
     <Footer></Footer>
     </div>
   )

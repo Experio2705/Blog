@@ -1,3 +1,11 @@
+.profile-outer{
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+.profile-content-main{
+    flex: 1;
+}
 .profile-content{
     background:
             linear-gradient(340deg, rgb(40, 3, 76), rgb(123, 16, 224)) top,
