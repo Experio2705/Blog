@@ -65,8 +65,9 @@ const handleChange=(id)=>{
 
 console.log(data);
   return (
-      <div className='about-us-outer' style={{fontFamily:"sans-serif"}}>
+      <div className='category-outer' style={{fontFamily:"sans-serif"}}>
           <Navbar></Navbar>
+        <div className="profile-content-main">
           <div className="line" style={{height:"0.3%"}}></div>
           <div className='profile-slogan' >
               <p style={{fontSize:"3rem",padding:"2% 2% 0% 2%"}}>Browse Blogs</p>
@@ -124,7 +125,7 @@ console.log(data);
                   </div>
               )
             }
-      
+        </div>
       <Footer></Footer>
     </div>
   )
