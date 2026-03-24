@@ -76,7 +76,8 @@ app.post('/Info', async (req,res)=>{
 app.post("/CreateBlog", upload.single("image"), async (req,res)=>{
   try{
     const{title,category,description,content,userEmail,userName}=req.body
-
+        console.log("➡️ createBlog API called");
+      console.log("Body:", req.body);
     if (!req.file) {
       return res.status(400).json({ error: "No image uploaded" })
     }
