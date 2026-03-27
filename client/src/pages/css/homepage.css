@@ -238,8 +238,8 @@
 
 .but{
     font-size:1rem;
-    padding:10px;
-    height: 44px;;
+    padding:20px;
+    height:auto;
     width:auto;
 }
 
